@@ -22,7 +22,7 @@ import urllib.request
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CACHE = os.path.join(ROOT, "cache")
 STATE = os.path.join(CACHE, "sources.json")
-UA = "NX-subs-fetch/1.0 (+https://gitee.com/NX8/noas-subs)"
+UA = "NX-subs-fetch/1.0 (+https://gitee.com/NX8/nx-subs)"
 
 MIRRORS = ["https://gh-proxy.com/", "https://ghfast.top/"]
 

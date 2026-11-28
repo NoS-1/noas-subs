@@ -1,9 +1,9 @@
 ! Title: NX 拦截订阅（full）
 ! Description: 公开上游源并集，白名单硬闸过滤后发布
 ! Version: 20261129-30ffed59
-! Last modified: Sat, 28 Nov 2026 17:49:53 GMT
+! Last modified: Sat, 28 Nov 2026 17:56:08 GMT
 ! Expires: 12 hours
-! Homepage: https://gitee.com/NX8/noas-subs
+! Homepage: https://gitee.com/NX8/nx-subs
 ! 条数: 97958（含通配 2）
 
 ||0.myikas.com^

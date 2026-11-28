@@ -62,7 +62,7 @@ python3 -m unittest -v tests.test_pipeline
 
 ## App 通道契约（对齐 SubscriptionSync）
 
-- 拉取双通道：Gitee 主 `https://gitee.com/NX8/noas-subs/raw/main/`，GitHub 备 `https://raw.githubusercontent.com/NX920/noas-subs/main/`。
+- 拉取双通道：Gitee 主 `https://gitee.com/NX8/nx-subs/raw/main/`，GitHub 备 `https://raw.githubusercontent.com/NX920/nx-subs/main/`。
 - manifest：`{"version": <i64>, "generated_at": <ISO>, "files": {<name>: {"sha256", "size", "nonempty_lines"}}}`。
 - 签名：ECDSA `SHA256withECDSA`，曲线 P-256（prime256v1），签名为原始 DER 字节；App 端 `SignedConfig` 内置公钥验签。
 - Gitee 大名单先拉 `.gz` 副本，失败回退 Contents API 明文。
@@ -75,6 +75,6 @@ python3 -m unittest -v tests.test_pipeline
 
 ## 待办
 
-- [ ] 远端推送：本地规则仓推送到 Gitee `NX8/noas-subs`（主）+ GitHub `NX920/noas-subs`（备），分支 `main`。
+- [ ] 远端推送：本地规则仓推送到 Gitee `NX8/nx-subs`（主）+ GitHub `NX920/nx-subs`（备），分支 `main`。
 - [ ] App 内置公钥轮换为本仓新公钥，重出包。
 - [ ] 远端推送前复核：manifest 摘要与 `domains.txt` / `whitelist.txt` 一致。

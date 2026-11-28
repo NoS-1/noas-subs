@@ -229,7 +229,7 @@ def _sha256_bytes(b):
     return hashlib.sha256(b).hexdigest()
 
 
-def write_standalone(domains, wild, outdir, kind, title="NX 拦截订阅", home="https://gitee.com/NX8/noas-subs"):
+def write_standalone(domains, wild, outdir, kind, title="NX 拦截订阅", home="https://gitee.com/NX8/nx-subs"):
     """产出独立订阅多格式到 outdir。返回 meta dict。"""
     os.makedirs(outdir, exist_ok=True)
     doms = sorted(domains)
