@@ -77,6 +77,19 @@ def _write_gz(src):
         f.write(data)
 
 
+def ensure_emergency():
+    """云端急救配置兜底：缺省时写空名单模板，端侧验签后按空名单保守运行。"""
+    d = os.path.join(ROOT, "cloud")
+    os.makedirs(d, exist_ok=True)
+    p = os.path.join(d, "emergency.json")
+    if not os.path.exists(p):
+        with open(p, "w", encoding="utf-8") as f:
+            json.dump({"version": 0, "allow": [], "block": [], "bypass": [], "model": {}},
+                      f, ensure_ascii=False, indent=1)
+            f.write("\n")
+    return p
+
+
 def write_channels(exact, wl):
     os.makedirs(ROOT, exist_ok=True)
     black = sorted(exact)
@@ -134,6 +147,7 @@ def main():
 
     write_standalone_tiers(exact, wild, hitn)
     manifest_p, manifest = write_channels(exact, wl)
+    emergency_p = ensure_emergency()
     print("App 通道：domains.txt %d 条｜whitelist.txt %d 条｜version %d" % (
         manifest["files"]["domains.txt"]["nonempty_lines"],
         manifest["files"]["whitelist.txt"]["nonempty_lines"],
@@ -143,6 +157,7 @@ def main():
         sys.path.insert(0, os.path.join(ROOT, "tools"))
         import sign
         sign.sign_file(manifest_p)
+        sign.sign_file(emergency_p)
     return 0
 
 

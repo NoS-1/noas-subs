@@ -3,11 +3,11 @@
  "version": "20261129-51c64abc",
  "count": 6931,
  "wildcards": 4,
- "generated_utc": "Sat, 28 Nov 2026 17:56:09 GMT",
+ "generated_utc": "Sat, 28 Nov 2026 18:38:01 GMT",
  "files": {
   "adguard.txt": {
    "bytes": 128463,
-   "sha256": "2028e211824a3986f8891e9025898d53696372abe3996310f85f6467bb6c5cf7"
+   "sha256": "e6c8169dcea1340b3ac9a02f13559814c6ac839139136dc23bcc46f0a4cecff7"
   },
   "clash.yaml": {
    "bytes": 232146,

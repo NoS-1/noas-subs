@@ -15,6 +15,7 @@ sys.path.insert(0, os.path.join(ROOT, "tools"))
 
 import compile as C  # noqa: E402
 import sign          # noqa: E402
+import aggregate_reports as AG  # noqa: E402
 
 
 def write_cache(cache_dir, name, text):
@@ -162,6 +163,29 @@ class TestSigning(unittest.TestCase):
         with open(manifest, "w", encoding="utf-8") as f:
             json.dump({"version": 2026112899, "files": {}}, f)
         self.assertEqual(sign.verify_file(manifest, sig), 1)
+
+
+class TestAggregateReports(unittest.TestCase):
+    def test_aggregate_candidate_and_misblock(self):
+        rows = [
+            {"type": "candidate", "host": "A.com", "count": 3,
+             "signals": "random-label,high-freq", "pkg": "p.a", "pn": "A"},
+            {"type": "candidate", "host": "a.com", "count": 2, "signals": "high-freq"},
+            {"type": "misblock", "host": "b.com", "pkg": "p.b", "pn": "B",
+             "bucket": "ad", "reason": "r"},
+            {"type": "cache", "host": "c.com"},
+            {"type": "candidate", "host": "", "count": 1},
+        ]
+        q = AG.aggregate(rows)
+        by = {i["host"]: i for i in q}
+        self.assertEqual(by["a.com"]["candidate_count"], 5)
+        self.assertEqual(by["a.com"]["signals"], ["high-freq", "random-label"])
+        self.assertTrue(by["b.com"]["misblock"])
+        self.assertEqual(by["b.com"]["buckets"], ["ad"])
+        self.assertNotIn("c.com", by)
+        # 误拦申诉优先排前，其后按候选频次倒序。
+        self.assertEqual(q[0]["host"], "b.com")
+        self.assertEqual(q[1]["host"], "a.com")
 
 
 if __name__ == "__main__":
