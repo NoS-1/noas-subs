@@ -187,6 +187,36 @@ class TestAggregateReports(unittest.TestCase):
         self.assertEqual(q[0]["host"], "b.com")
         self.assertEqual(q[1]["host"], "a.com")
 
+    def test_resolve_decisions_buckets_verdicts(self):
+        rows = [
+            {"type": "candidate", "host": "x.com", "count": 2},
+            {"type": "candidate", "host": "y.com", "count": 1},
+            {"type": "misblock", "host": "z.com", "pkg": "p.z"},
+        ]
+        q = AG.aggregate(rows)
+        decisions = {
+            "x.com": "block",
+            "y.com": "allow",
+            "z.com": "drop",
+            "ghost.com": "allow",      # 不在队列，忽略
+            "x.com.": "allow",         # 归一化后命中 x.com，但同一 host 后写覆盖前写
+            "y.com": "nope",          # 非法裁决，忽略
+        }
+        out = AG.resolve_decisions(q, decisions)
+        # x.com 归一化命中，后写 allow 覆盖 block；y.com 非法裁决不入桶；z.com 不采纳。
+        self.assertEqual(out["block"], [])
+        self.assertEqual(out["allow"], ["x.com"])
+
+    def test_misblock_not_auto_allowed(self):
+        q = AG.aggregate([{"type": "misblock", "host": "s.com", "pkg": "p"}])
+        out = AG.resolve_decisions(q, {})
+        self.assertEqual(out["block"], [])
+        self.assertEqual(out["allow"], [])
+
+    def test_resolve_decisions_empty_input(self):
+        self.assertEqual(AG.resolve_decisions([], {"a.com": "block"}),
+                         {"block": [], "allow": []})
+
 
 if __name__ == "__main__":
     unittest.main()

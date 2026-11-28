@@ -82,6 +82,35 @@ def load_jsonl(path):
     return rows
 
 
+# 复核裁决合法取值：block 入拦截名单、allow 入放行名单、drop 不采纳。
+VALID_VERDICTS = ("block", "allow", "drop")
+
+
+def _norm(host):
+    return (host or "").strip().lower().rstrip(".")
+
+
+def resolve_decisions(queue, decisions):
+    """按复核裁决把队列域名分桶为拦截 / 放行清单（纯函数，不写文件、不签名）。
+
+    - queue: aggregate() 输出的待复核条目列表；
+    - decisions: {host: "block" | "allow" | "drop"}，仅对队列内域名生效；
+    - 未知域名、非法裁决一律忽略；misblock 申诉不会自动进入放行，必须显式 allow。
+
+    返回 {"block": [sorted], "allow": [sorted]}。
+    """
+    known = {_norm(item.get("host")) for item in queue if isinstance(item, dict)}
+    verdict_by_host = {}
+    for raw_host, verdict in (decisions or {}).items():
+        host = _norm(raw_host)
+        if not host or host not in known or verdict not in VALID_VERDICTS:
+            continue
+        verdict_by_host[host] = verdict  # 同一域名后写裁决覆盖前写
+    block = {h for h, v in verdict_by_host.items() if v == "block"}
+    allow = {h for h, v in verdict_by_host.items() if v == "allow"}
+    return {"block": sorted(block), "allow": sorted(allow)}
+
+
 def main(argv):
     ap = argparse.ArgumentParser()
     ap.add_argument("reports", nargs="?", help="导出的上报 JSONL 文件")

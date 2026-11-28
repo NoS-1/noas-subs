@@ -1,7 +1,7 @@
 ! Title: NX 拦截订阅（lite）
 ! Description: 公开上游源并集，白名单硬闸过滤后发布
 ! Version: 20261129-d244f94b
-! Last modified: Sat, 28 Nov 2026 18:38:01 GMT
+! Last modified: Sat, 28 Nov 2026 18:55:44 GMT
 ! Expires: 12 hours
 ! Homepage: https://gitee.com/NX8/nx-subs
 ! 条数: 6855（含通配 4）
