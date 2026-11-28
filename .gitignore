@@ -1,0 +1,9 @@
+# 上游缓存与构建中间产物
+cache/
+tools/__pycache__/
+tests/__pycache__/
+*.pyc
+
+# 私钥绝不入库（公钥可入库备查）
+*.pem
+!docs/*.pub.pem

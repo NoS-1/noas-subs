@@ -1,0 +1,17 @@
+# NX 规则仓上游台账
+# 列：名称<TAB>URL<TAB>格式(hosts/adblock/domains/dnsmasq/wildcard)<TAB>类型(block/allow)<TAB>说明
+# 链路口径：台账存 GitHub raw 原始 URL；fetch 构建期按 raw -> gh-proxy.com -> ghfast.top 轮换兜底。
+# 端侧与外部客户端只连自有规则仓，不直连第三方源。
+# 本台账由《国内加速版订阅清单》筛选而来：大合集、同源重复、兜底镜像前缀行已剔除；旧源全部废弃。
+
+anti-ad-easylist	https://anti-ad.net/easylist.txt	adblock	block	anti-AD 中文区开屏/信息流/电视盒子，anti-ad.net 直链
+aw-avenue	https://raw.githubusercontent.com/AdguardTeam/HostlistsRegistry/main/filters/general/filter_53_AWAvenueAdsRule/filter.txt	adblock	block	猫队 AdRules：百度/腾讯/字节/阿里妈妈/小米及国内视频
+ad-wars	https://raw.githubusercontent.com/jdlingyu/ad-wars/master/hosts	hosts	block	大圣净化 国内视频网站广告
+cjxlist	https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjxlist.txt	adblock	block	CJX's App 内推广/版权弹窗
+cjx-annoyance	https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt	adblock	block	CJX's 骚扰/弹窗补漏
+yhosts	https://raw.githubusercontent.com/vokins/yhosts/master/hosts	hosts	block	国内 hosts 类补漏（无 .txt 后缀）
+liwenjie119	https://raw.githubusercontent.com/liwenjie119/adg-rules/master/black.txt	adblock	block	社区黑名单
+zisbusy	https://raw.githubusercontent.com/Zisbusy/AdGuardHome-Rules/main/Rules/blacklist.txt	adblock	block	AdGuardHome 规则黑名单
+rssvcn	https://raw.githubusercontent.com/rssvcn/qy-Ads-Rule/main/black.txt	adblock	block	企业/应用推广黑名单
+halflife-ad	https://raw.githubusercontent.com/sbwml/halflife-list/master/ad.txt	adblock	block	halflife 合并乘风视频+EasyListChina+CJX's，补国内视频片头片尾（元素隐藏规则 DNS 不取）
+dangchu-allow	https://raw.githubusercontent.com/qq5460168/dangchu/main/white.txt	adblock-allow	allow	白名单：防 App 打不开（@@ 例外规则）

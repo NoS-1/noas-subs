@@ -1,0 +1,16 @@
+{
+ "version": 202611281749,
+ "generated_at": "2026-11-28T17:49:54.280015+00:00",
+ "files": {
+  "domains.txt": {
+   "sha256": "5b31747a6e0968f5297d383ea60c92b7908f0fea78740478e06741353d5d108a",
+   "size": 1843637,
+   "nonempty_lines": 97958
+  },
+  "whitelist.txt": {
+   "sha256": "51a40e42d1ca20652d0abbae55fe5efc22a04c3ebd1e0f1b39af858d9e2dc8d1",
+   "size": 36515,
+   "nonempty_lines": 1979
+  }
+ }
+}

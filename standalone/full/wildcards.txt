@@ -1,0 +1,3 @@
+# NX 拦截订阅 通配（20261129-30ffed59）：*.域 = 任意多级子域
+*.ads.heytapmobi.com
+*.mmstat.com
